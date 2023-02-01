@@ -1,6 +1,6 @@
 var userFormEl = document.querySelector('#user-form')
 var searchInputEl = document.querySelector('#cityname')
-const previouSearch = JSON.parse(localStorage.getItem("city"))||[]
+const previouSearch = JSON.parse(localStorage.getItem("city")) || []
 //Create function to show city weather
 var formSubmitHandler = function (event) {
     event.preventDefault();
@@ -11,7 +11,7 @@ var formSubmitHandler = function (event) {
         // showCityWeather(cityname);
         // const previouSearch = JSON.parse(localStorage.getItem("city"))||[]
         previouSearch.push(cityname)
-        localStorage.setItem("city",JSON.stringify(previouSearch))
+        localStorage.setItem("city", JSON.stringify(previouSearch))
         // console.log(previouSearch)
         displayCities()
         getCityGeo(cityname);
@@ -25,12 +25,12 @@ var formSubmitHandler = function (event) {
 
 function displayCities() {
     const historyEL = document.querySelector("#previouscity")
-    historyEL.innerHTML=""
+    historyEL.innerHTML = ""
 
-    for(var i=0;i<previouSearch.length;i++){
+    for (var i = 0; i < previouSearch.length; i++) {
         const cityEl = document.createElement("button")
         cityEl.textContent = previouSearch[i]
-        cityEl.addEventListener("click",function(event){
+        cityEl.addEventListener("click", function (event) {
             var cityname = event.target.textContent
             getCityGeo(cityname)
 
@@ -55,7 +55,7 @@ var getCityGeo = function (City) {
             lat = data[0].lat
             lon = data[0].lon
             showCityWeather(lat, lon)
-            FiveDayForecast(lat,lon)
+            FiveDayForecast(lat, lon)
         });
 
 };
@@ -72,13 +72,13 @@ var showCityWeather = function (lat, lon) {
             const { icon, description } = data.weather[0];
             const { temp, humidity } = data.main;
             const { speed } = data.wind;
-            console.log(name,icon,description,temp,humidity,speed)
+            console.log(name, icon, description, temp, humidity, speed)
         })
 
 }
 
 var FiveDayForecast = function (lat, lon) {
-    var apiUrl = 'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + lon + '&appid=' + APIkey +"&units=metric"
+    var apiUrl = 'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + lon + '&appid=' + APIkey + "&units=metric"
 
     fetch(apiUrl)
         .then((response) => response.json())
@@ -86,18 +86,30 @@ var FiveDayForecast = function (lat, lon) {
 
             const fivedayEl = document.querySelector("#fivedayforcast")
             fivedayEl.innerHTML = ""
-            for(var i=0; i<data.list.length;i+=8){
+
+            for (var i = 0; i < data.list.length; i += 8) {
+
                 const weather = data.list[i]
                 const { name } = weather;
-                console.log(weather)
+                // console.log(weather)
+
                 const cardEl = document.createElement("div")
                 cardEl.classList.add("card")
+
                 const tempEl = document.createElement("p")
-                tempEl.textContent = "temperture: " + weather.main.temp//Math.round
+                tempEl.textContent = "temperature: " + weather.main.temp//Math.round
+
                 const humidityEl = document.createElement("p")
-                humidityEl = "himidity:" + weather.main.humidity
-                console.log(humidityEl)
-                cardEl.appendchild(tempEl,humidityEl)
+                humidityEl.textContent = "humidity:" + weather.main.humidity
+                // console.log(humidityEl)
+
+                const iconEl = document.createElement("p")
+                iconEl.textContent = 'http://openweathermap.org/img/wn/'+ weather.weather.icon + '@2x.png'
+                console.log(iconEl.textContent)
+
+                cardEl.appendChild(tempEl)
+                cardEl.appendChild(humidityEl)
+                cardEl.appendChild(iconEl)
                 fivedayEl.appendChild(cardEl)
 
             }
