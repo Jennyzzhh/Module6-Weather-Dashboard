@@ -94,9 +94,12 @@ var FiveDayForecast = function (lat, lon) {
                 cardEl.classList.add("card")
                 const tempEl = document.createElement("p")
                 tempEl.textContent = "temperture: " + weather.main.temp//Math.round
-
-                cardEl.appendChild(tempEl)
+                const humidityEl = document.createElement("p")
+                humidityEl = "himidity:" + weather.main.humidity
+                console.log(humidityEl)
+                cardEl.appendchild(tempEl)
                 fivedayEl.appendChild(cardEl)
+
             }
 
             // const { icon, description } = data.weather;
