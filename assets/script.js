@@ -97,7 +97,7 @@ var FiveDayForecast = function (lat, lon) {
                 const humidityEl = document.createElement("p")
                 humidityEl = "himidity:" + weather.main.humidity
                 console.log(humidityEl)
-                cardEl.appendchild(tempEl)
+                cardEl.appendchild(tempEl,humidityEl)
                 fivedayEl.appendChild(cardEl)
 
             }
