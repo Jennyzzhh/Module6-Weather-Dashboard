@@ -103,7 +103,7 @@ var FiveDayForecast = function (lat, lon) {
                 humidityEl.textContent = "humidity:" + weather.main.humidity
                 // console.log(humidityEl)
 
-                const iconEl = document.createElement("p")
+                const iconEl = document.createElement("img")
                 iconEl.textContent = 'http://openweathermap.org/img/wn/'+ weather.weather.icon + '@2x.png'
                 console.log(weather.weather.icon)
 
