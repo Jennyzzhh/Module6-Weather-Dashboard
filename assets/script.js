@@ -97,19 +97,26 @@ var FiveDayForecast = function (lat, lon) {
                 cardEl.classList.add("card")
 
                 const tempEl = document.createElement("p")
-                tempEl.textContent = "temperature: " + weather.main.temp//Math.round
+                tempEl.textContent = "temperature: " + weather.main.temp + "°C"
+                //Math.round 
 
                 const humidityEl = document.createElement("p")
-                humidityEl.textContent = "humidity:" + weather.main.humidity
+                humidityEl.textContent = "humidity: " + weather.main.humidity + "%"
                 // console.log(humidityEl)
 
-                const iconEl = document.createElement("img")
-                iconEl.textContent = 'http://openweathermap.org/img/wn/'+ weather.weather.icon + '@2x.png'
-                console.log(weather.weather.icon)
+                // const iconEl = document.createElement("img")
+                // iconEl.textContent = 'http://openweathermap.org/img/wn/'+ weather.weather.icon + '@2x.png'
+                // console.log(weather.weather.icon)
+
+                const speedEl = document.createElement("p")
+                speedEl.textContent = "Speed: " + weather.wind.speed + "MPH"
+
+
 
                 cardEl.appendChild(tempEl)
                 cardEl.appendChild(humidityEl)
-                cardEl.appendChild(iconEl)
+                // cardEl.appendChild(iconEl)
+                cardEl.appendChild(speedEl)
                 fivedayEl.appendChild(cardEl)
 
             }
