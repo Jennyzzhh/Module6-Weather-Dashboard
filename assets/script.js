@@ -23,6 +23,7 @@ var formSubmitHandler = function (event) {
     }
 };
 
+//Search History 
 function displayCities() {
     const historyEL = document.querySelector("#previouscity")
     historyEL.innerHTML = ""
@@ -67,12 +68,41 @@ var showCityWeather = function (lat, lon) {
     fetch(apiUrl)
         .then((response) => response.json())
         .then((data) => {
-            const { name } = data;
-            console.log(data)
-            const { icon, description } = data.weather[0];
-            const { temp, humidity } = data.main;
-            const { speed } = data.wind;
-            console.log(name, icon, description, temp, humidity, speed)
+
+            const currentdayEl = document.querySelector("#currentweather")
+
+            const cardEl = document.createElement("div")
+            cardEl.classList.add("card")
+
+            // let nameEl = document.createElement("h2")
+            // nameEl.textContent = searchInputEl.value.trim();
+            // console.log(nameEl)
+
+            let tempEl = document.createElement("p")
+            tempEl.textContent = "temperature: " + data.main.temp + "°C"
+            //Math.round 
+
+            let humidityEl = document.createElement("p")
+            humidityEl.textContent = "humidity: " + data.main.humidity + "%"
+            // console.log(humidityEl)
+
+            let speedEl = document.createElement("p")
+            speedEl.textContent = "Speed: " + data.wind.speed + "MPH"
+
+
+            cardEl.appendChild(tempEl)
+            cardEl.appendChild(humidityEl)
+            // cardEl.appendChild(iconEl)
+            cardEl.appendChild(speedEl)
+            // cardEl.appendChild(nameEl)
+            currentdayEl.appendChild(cardEl)
+
+            // const { name } = data;
+            // console.log(data)
+            // const { icon, description } = data.weather[0];
+            // const { temp, humidity } = data.main;
+            // const { speed } = data.wind;
+            // console.log(name, icon, description, temp, humidity, speed)
         })
 
 }
