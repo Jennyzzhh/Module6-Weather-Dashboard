@@ -1,25 +1,31 @@
 var userFormEl = document.querySelector('#user-form')
 var searchInputEl = document.querySelector('#cityname')
 const previouSearch = JSON.parse(localStorage.getItem("city")) || []
-//Create function to show city weather
+
+
+
+//Create function to search city weather
 var formSubmitHandler = function (event) {
+
     event.preventDefault();
 
-    var cityname = searchInputEl.value.trim();
+    let cityname = searchInputEl.value.trim();
+
 
     if (cityname) {
-        // showCityWeather(cityname);
-        // const previouSearch = JSON.parse(localStorage.getItem("city"))||[]
+
         previouSearch.push(cityname)
+
         localStorage.setItem("city", JSON.stringify(previouSearch))
-        // console.log(previouSearch)
+
         displayCities()
+
         getCityGeo(cityname);
 
-        //   repoContainerEl.textContent = '';
         searchInputEl.value = '';
+
     } else {
-        alert('Please enter a GitHub username');
+        alert('Please enter valid city name');
     }
 };
 
@@ -42,6 +48,15 @@ function displayCities() {
 }
 displayCities();
 
+//clear History
+function clearHistory() {
+    const clearEL = document.createElement("button")
+    clearEL.addEventListener("click",function (event) {
+        localStorage.setItem("city","")
+    })
+}
+clearHistory()
+
 userFormEl.addEventListener('submit', formSubmitHandler);
 
 //convert city name to Geo lat and lon
@@ -53,6 +68,7 @@ var getCityGeo = function (City) {
     fetch(apiUrl)
         .then((response) => response.json())
         .then((data) => {
+            // console.log(data)
             lat = data[0].lat
             lon = data[0].lon
             showCityWeather(lat, lon)
@@ -68,33 +84,36 @@ var showCityWeather = function (lat, lon) {
     fetch(apiUrl)
         .then((response) => response.json())
         .then((data) => {
+            console.log(data)
 
             const currentdayEl = document.querySelector("#currentweather")
 
             const cardEl = document.createElement("div")
             cardEl.classList.add("card")
 
-            // let nameEl = document.createElement("h2")
-            // nameEl.textContent = searchInputEl.value.trim();
-            // console.log(nameEl)
+            let nameEl = document.createElement("h2")
+            nameEl.textContent = data.name
+
 
             let tempEl = document.createElement("p")
             tempEl.textContent = "temperature: " + data.main.temp + "°C"
             //Math.round 
 
+            const iconEl = document.createElement("img")
+            iconURL = 'http://openweathermap.org/img/wn/' + data.weather[0].icon + '@2x.png'
+            iconEl.setAttribute("src", iconURL) //icon description in weather.weather
+
             let humidityEl = document.createElement("p")
             humidityEl.textContent = "humidity: " + data.main.humidity + "%"
-            // console.log(humidityEl)
 
             let speedEl = document.createElement("p")
             speedEl.textContent = "Speed: " + data.wind.speed + "MPH"
 
-
+            cardEl.appendChild(nameEl)
             cardEl.appendChild(tempEl)
             cardEl.appendChild(humidityEl)
-            // cardEl.appendChild(iconEl)
+            cardEl.appendChild(iconEl)
             cardEl.appendChild(speedEl)
-            // cardEl.appendChild(nameEl)
             currentdayEl.appendChild(cardEl)
 
             // const { name } = data;
@@ -108,6 +127,10 @@ var showCityWeather = function (lat, lon) {
 }
 
 var FiveDayForecast = function (lat, lon) {
+
+    // const fiveTitle = document.createElement("h2")
+    // fiveTitle.textContent = "Five Day Forecast"
+
     var apiUrl = 'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + lon + '&appid=' + APIkey + "&units=metric"
 
     fetch(apiUrl)
@@ -121,10 +144,14 @@ var FiveDayForecast = function (lat, lon) {
 
                 const weather = data.list[i]
                 const { name } = weather;
-                // console.log(weather)
+                console.log(weather)
 
                 const cardEl = document.createElement("div")
                 cardEl.classList.add("card")
+
+                const dateEl = document.createElement("p")
+                dateEl.textContent = weather.dt_txt
+                //Math.round 
 
                 const tempEl = document.createElement("p")
                 tempEl.textContent = "temperature: " + weather.main.temp + "°C"
@@ -134,18 +161,19 @@ var FiveDayForecast = function (lat, lon) {
                 humidityEl.textContent = "humidity: " + weather.main.humidity + "%"
                 // console.log(humidityEl)
 
-                // const iconEl = document.createElement("img")
-                // iconEl.textContent = 'http://openweathermap.org/img/wn/'+ weather.weather.icon + '@2x.png'
-                // console.log(weather.weather.icon)
+                const iconEl = document.createElement("img")
+                iconURL = 'http://openweathermap.org/img/wn/' + weather.weather[0].icon + '@2x.png'
+                iconEl.setAttribute("src", iconURL) //icon description in weather.weather
+
 
                 const speedEl = document.createElement("p")
                 speedEl.textContent = "Speed: " + weather.wind.speed + "MPH"
 
 
-
+                cardEl.appendChild(dateEl)
                 cardEl.appendChild(tempEl)
                 cardEl.appendChild(humidityEl)
-                // cardEl.appendChild(iconEl)
+                cardEl.appendChild(iconEl)
                 cardEl.appendChild(speedEl)
                 fivedayEl.appendChild(cardEl)
 
@@ -161,6 +189,6 @@ var FiveDayForecast = function (lat, lon) {
 
 
 
-
+//button - eventlistener - storage to empty array 
 
 
