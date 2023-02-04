@@ -13,6 +13,10 @@
 
 }
 
+.currentw .card {
+    width:98%;
+}
+
 .fivew {
     display: flex;
     /* flex-direction: column; */
@@ -35,6 +39,7 @@
     border-style: solid;
     margin:1%;
     width:20%;
+    background-color: #AED6F1;
 }
 
 .previousw {
@@ -53,5 +58,5 @@
 }
 
 h2 {
-    color:aqua;
+    color:#2471A3;
 }
