@@ -88,6 +88,7 @@ var showCityWeather = function (lat, lon) {
             console.log(data)
 
             const currentdayEl = document.querySelector("#currentweather")
+            currentdayEl.innerHTML = ""
 
             const cardEl = document.createElement("div")
             cardEl.classList.add("card")
@@ -100,8 +101,8 @@ var showCityWeather = function (lat, lon) {
             let day = date.getDate();
             let month = date.getMonth() + 1;
             let year = date.getFullYear();
-            let currentDate = `${year}-${month}-${day}`;
-            console.log(currentDate);
+            let dateEl = document.createElement("p")
+            dateEl.textContent = `${year}-${month}-${day}`;
 
             let tempEl = document.createElement("p")
             tempEl.textContent = "temperature: " + data.main.temp + "°C"
@@ -118,10 +119,10 @@ var showCityWeather = function (lat, lon) {
             speedEl.textContent = "Speed: " + data.wind.speed + "MPH"
 
             cardEl.appendChild(nameEl)
-            cardEl.appendChild(currentDate)
+            cardEl.appendChild(dateEl)
+            cardEl.appendChild(iconEl)
             cardEl.appendChild(tempEl)
             cardEl.appendChild(humidityEl)
-            cardEl.appendChild(iconEl)
             cardEl.appendChild(speedEl)
             currentdayEl.appendChild(cardEl)
 
@@ -180,9 +181,9 @@ var FiveDayForecast = function (lat, lon) {
 
 
                 cardEl.appendChild(dateEl)
+                cardEl.appendChild(iconEl)
                 cardEl.appendChild(tempEl)
                 cardEl.appendChild(humidityEl)
-                cardEl.appendChild(iconEl)
                 cardEl.appendChild(speedEl)
                 fivedayEl.appendChild(cardEl)
 

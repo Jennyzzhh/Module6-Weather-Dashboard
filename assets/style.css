@@ -27,10 +27,14 @@
 
 }
 
+.cityCard {
+    width:100%
+}
+
 .card {
     border-style: solid;
-    margin:5%;
-    /* width:10%; */
+    margin:1%;
+    width:20%;
 }
 
 .previousw {
