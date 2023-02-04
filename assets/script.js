@@ -22,6 +22,8 @@ var formSubmitHandler = function (event) {
 
         getCityGeo(cityname);
 
+        clearHistory(cityname)
+
         searchInputEl.value = '';
 
     } else {
@@ -49,14 +51,16 @@ function displayCities() {
 displayCities();
 
 //clear History
-function clearHistory() {
-    const clearEL = document.createElement("button")
+// function clearHistory() {
+    const clearEL = document.querySelector(".Secbtn")
     clearEL.textContent = "Clear History"
     clearEL.addEventListener("click", function (event) {
+
         localStorage.setItem("city", [])
     })
-}
-clearHistory()
+// }
+
+console.log(localStorage.getItem("city"))
 
 userFormEl.addEventListener('submit', formSubmitHandler);
 
