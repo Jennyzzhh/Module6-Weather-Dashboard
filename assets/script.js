@@ -51,8 +51,9 @@ displayCities();
 //clear History
 function clearHistory() {
     const clearEL = document.createElement("button")
+    clearEL.textContent = "Clear History"
     clearEL.addEventListener("click",function (event) {
-        localStorage.setItem("city","")
+        localStorage.setItem("city",[])
     })
 }
 clearHistory()
@@ -94,6 +95,16 @@ var showCityWeather = function (lat, lon) {
             let nameEl = document.createElement("h2")
             nameEl.textContent = data.name
 
+            const date = new Date();
+
+            let day = date.getDate();
+            let month = date.getMonth() + 1;
+            let year = date.getFullYear();
+            
+            // This arrangement can be altered based on how we want the date's format to appear.
+            let currentDate = `${year}-${month}-${day}`;
+            console.log(currentDate); 
+
 
             let tempEl = document.createElement("p")
             tempEl.textContent = "temperature: " + data.main.temp + "°C"
@@ -110,6 +121,7 @@ var showCityWeather = function (lat, lon) {
             speedEl.textContent = "Speed: " + data.wind.speed + "MPH"
 
             cardEl.appendChild(nameEl)
+            cardEl.appendChild(currentDate)
             cardEl.appendChild(tempEl)
             cardEl.appendChild(humidityEl)
             cardEl.appendChild(iconEl)
