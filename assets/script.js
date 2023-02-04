@@ -52,8 +52,8 @@ displayCities();
 function clearHistory() {
     const clearEL = document.createElement("button")
     clearEL.textContent = "Clear History"
-    clearEL.addEventListener("click",function (event) {
-        localStorage.setItem("city",[])
+    clearEL.addEventListener("click", function (event) {
+        localStorage.setItem("city", [])
     })
 }
 clearHistory()
@@ -100,17 +100,14 @@ var showCityWeather = function (lat, lon) {
             let day = date.getDate();
             let month = date.getMonth() + 1;
             let year = date.getFullYear();
-            
-            // This arrangement can be altered based on how we want the date's format to appear.
             let currentDate = `${year}-${month}-${day}`;
-            console.log(currentDate); 
-
+            console.log(currentDate);
 
             let tempEl = document.createElement("p")
             tempEl.textContent = "temperature: " + data.main.temp + "°C"
             //Math.round 
 
-            const iconEl = document.createElement("img")
+            let iconEl = document.createElement("img")
             iconURL = 'http://openweathermap.org/img/wn/' + data.weather[0].icon + '@2x.png'
             iconEl.setAttribute("src", iconURL) //icon description in weather.weather
 
